@@ -1,0 +1,10 @@
+com\alibaba\jstorm\kafka\KafkaConsumer.class
+com\alibaba\jstorm\kafka\PartitionConsumer$EmitState.class
+com\alibaba\jstorm\kafka\PartitionConsumer.class
+com\alibaba\jstorm\kafka\KafkaMessageId.class
+com\alibaba\jstorm\kafka\KafkaSpout.class
+com\alibaba\jstorm\kafka\KafkaSpoutConfig.class
+com\alibaba\jstorm\kafka\ZkState.class
+com\alibaba\jstorm\kafka\KafkaConstant.class
+com\alibaba\jstorm\kafka\PartitionCoordinator.class
+com\alibaba\jstorm\kafka\Host.class

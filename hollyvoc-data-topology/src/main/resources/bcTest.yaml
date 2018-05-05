@@ -1,0 +1,19 @@
+topology.name: record-basic-topology-bcTest
+storm.cluster.mode: distributed
+topology.spout.max.batch.size: 300
+topology.tick.tuple.freq.secs: 3
+topology.acker.executors: 1
+topology.workers: 11
+
+
+bolt.parallel.index: 2
+bolt.parallel.newWord: 1
+bolt.parallel.hbase: 1
+#bolt.parallel.qc: 1
+#bolt.parallel.oracle: 1
+spout.parallel: 1
+bolt.parallel.error: 1
+bolt.parallel.nw: 1
+bolt.parallel.nw.redis: 1
+
+

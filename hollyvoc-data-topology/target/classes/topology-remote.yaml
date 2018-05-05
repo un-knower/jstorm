@@ -1,0 +1,75 @@
+topology.name: record-thread-topology
+storm.cluster.mode: distributed
+topology.spout.max.batch.size: 300
+topology.tick.tuple.freq.secs: 3
+topology.acker.executors: 1
+topology.workers: 11
+
+spout.single.thread: false
+spout.parallel: 1
+
+bolt.parallel.index: 4
+bolt.parallel.newWord: 1
+bolt.parallel.hbase: 1
+#bolt.parallel.qc: 1
+#bolt.parallel.oracle: 1
+
+bolt.parallel.error: 1
+bolt.parallel.nw: 1
+bolt.parallel.nw.redis: 1
+
+# 内存相关调优
+#worker.memory.size: 2147483648
+#topology.buffer.size:.limited: true
+#topology.transfer.buffer.size: 1024
+#topology.executor.receive.buffer.size: 256
+#topology.executor.send.buffer.size: 256
+
+
+# 等待spout的元组的最大数量即尚未确认或失败的的数量，设置此参数防止内存溢出
+topology.max.spout.pending: 1000
+
+## 以下配置是反压配置，即限流机制，防止bolt处理速度慢导致阻塞
+## 反压总开关
+topology.backpressure.enable: fasle
+## 高水位 －－ 当队列使用量超过这个值时，认为阻塞，
+## topology.backpressure.water.mark.high: 0.8
+topology.backpressure.water.mark.high: 0.5
+
+## 低水位 －－ 当队列使用量低于这个量时， 认为可以解除阻塞
+topology.backpressure.water.mark.low: 0.05
+## 阻塞比例 －－ 当阻塞task数／这个component并发 的比例高于这值时，触发反压
+topology.backpressure.coordinator.trigger.ratio: 0.01
+
+## 反压采样周期， 单位ms
+topology.backpressure.check.interval: 500
+## 采样次数和采样比例， 即在连续4次采样中， 超过（不包含）（4 ＊0.75）次阻塞才能认为真正阻塞， 超过（不包含）(4 * 0.75)次解除阻塞才能认为是真正解除阻塞
+topology.backpressure.trigger.sample.rate: 0.75
+topology.backpressure.trigger.sample.number: 4
+
+# kafka 配置
+#kafka.client.id: prov30-id
+## topic 分区
+#kafka.broker.partitions: 1
+#kafka.fetch.from.beginning: false
+#kafka.topic: storm-topic
+#kafka.broker.hosts: 10.8.177.24:9092,10.8.177.25:9092,10.8.177.23:9092
+#kafka.zookeeper.hosts: 10.8.177.23:2181,10.8.177.24:2181,10.8.177.25:2181
+#storm.zookeeper.root: /jstorm
+#kafka.group.id: record-30-topology
+## 更新offset的间隔时间
+#kafka.offset.update.interval.ms: 1000
+
+
+##redsis
+redis.host: 10.8.177.204
+redis.port: 6379
+redis.password: 12345678Az
+redis.timeout: 2000
+redis.maxTotal: 200
+redis.maxIdle: 200
+redis.maxWait: 10000
+redis.database: 2
+kafka.offset.redis.name: topic-offset
+
+

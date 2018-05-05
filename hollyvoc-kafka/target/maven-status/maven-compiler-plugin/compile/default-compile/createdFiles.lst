@@ -1,0 +1,3 @@
+com\hollycrm\kafka\consumer\DataConsumer.class
+com\hollycrm\kafka\consumer\DataConsumer$MsgHandler.class
+com\hollycrm\kafka\producer\DataProducer.class

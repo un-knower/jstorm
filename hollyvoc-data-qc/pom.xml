@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hollyvoc-streaming</artifactId>
+        <groupId>com.hollycrm.hollyvoc</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>hollyvoc-data-qc</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.jstorm</groupId>
+            <artifactId>jstorm-core</artifactId>
+            <!--本地测试时需要注释，提交集群时需要释放注释-->
+            <!--<scope>provided</scope>-->
+            <!--<version>2.2.1</version>-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.hollycrm.hollyvoc</groupId>
+            <artifactId>hollyvoc-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hollycrm.hollyvoc</groupId>
+            <artifactId>hollyvoc-constant</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--kafka 读取消息-->
+        <dependency>
+            <groupId>com.hollycrm.hollyvoc</groupId>
+            <artifactId>hollyvoc-kafka</artifactId>
+            <exclusions>
+                <exclusion>
+                <artifactId>slf4j-api</artifactId>
+                <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+            <version>1.0</version>
+        </dependency>
+
+        <!--oracle-->
+        <dependency>
+            <groupId>oracle.jdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hollycrm.hollyvoc</groupId>
+            <artifactId>hollyvoc-helper</artifactId>
+            <version>1.0</version>
+
+        </dependency>
+
+        <!--jstorm-kafka-->
+        <dependency>
+            <groupId>com.hollycrm.hollyvoc</groupId>
+            <artifactId>jstorm-kafka</artifactId>
+            <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--zk-client-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.sgroschupf</groupId>-->
+            <!--<artifactId>zkclient</artifactId>-->
+            <!--<version>${zkclient.version}</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>log4j</groupId>-->
+                    <!--<artifactId>log4j</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.apache.zookeeper</groupId>-->
+                    <!--<artifactId>zookeeper</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+
+
+        <dependency>
+            <groupId>com.taobao.util</groupId>
+            <artifactId>taobao-express</artifactId>
+            <version>3.1.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <directory>${project.basedir}/target</directory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--<excludes>-->
+                <!--<exclude>dev/*</exclude>-->
+                <!--&lt;!&ndash;<exclude>pro/*</exclude>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclude>test/*</exclude>&ndash;&gt;-->
+                <!--</excludes>-->
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.hollycrm.hollyvoc.qc.Application</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

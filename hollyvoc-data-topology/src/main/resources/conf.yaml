@@ -1,0 +1,27 @@
+# 多个bolt使用，分割
+     topology.spout.parallelism:
+         {
+             "txt-spout": 1
+         }
+     topology.bolt.parallelism:
+         {
+            "hbase-bolt": 5,
+            "index-bolt": 30,
+            "newWord-bolt": 2,
+            "nw2Redis-bolt": 2,
+            "error-bolt": 4
+
+         }
+
+topology.bolt.parallelism:
+    {
+        "nw2Redis-bolt": 1,
+        "hbase-bolt": 5,
+        "newWord-bolt":1,
+        "error-bolt":3,
+        "index-bolt": 2,
+    }
+topology.bolt.parallelism:
+    {
+        "index-bolt": 4,
+    }
